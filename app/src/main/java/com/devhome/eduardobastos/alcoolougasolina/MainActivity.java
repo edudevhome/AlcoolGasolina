@@ -1,17 +1,26 @@
 package com.devhome.eduardobastos.alcoolougasolina;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private EditText PrecoAlcool;
     private EditText PrecoGasolina;
-    private TextView textViewResult;
+    private LinearLayout linearLayout;
+    private AdView adView;
 
 
     @Override
@@ -19,12 +28,54 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MobileAds.initialize(this, "ca-app-pub-8069899346555474/8336523279");
+
+        //Configurando Banner1
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        linearLayout = findViewById(R.id.linearLayout);
         PrecoAlcool = findViewById(R.id.PrecoAlcool);
         PrecoGasolina = findViewById(R.id.PrecoGasolina); // Referencias para os componentes na tela
-        textViewResult = findViewById(R.id.textViewResult);
 
+
+
+// VERIFICA SE OS CAMPOS ESTAO VAZIOS
+
+        //Ocultar teclado
+
+        PrecoAlcool.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean b) {
+                if (!b) {
+                    escondeTeclado(v);
+                }
+            }
+        });
+
+
+        PrecoGasolina.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View vv, boolean bb) {
+                if (!bb) {
+                    escondeTeclado(vv);
+                }
+            }
+        });
 
     }
+    public void escondeTeclado(View v) {
+
+        if (v != null) {
+
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
+
+
+
 
         public void calcularPreco(View view){
         // RECUPERAR VALORES DIGITADOS
@@ -34,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
             //VALIDAR OS CAMPOS DIGITADOS
 
+
+
             Boolean camposValidados = this.validarCampos(valorAlcool, valorGasolina);
 
             if ( camposValidados ){
@@ -41,11 +94,14 @@ public class MainActivity extends AppCompatActivity {
                     this.MelhorCxB(valorAlcool, valorGasolina);
             }else{
 
-                textViewResult.setText("Preencha os valores corretamente.");
-            }
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setTitle("Aviso!");
+        dlg.setMessage("Há campos vazios.");
+        dlg.setNeutralButton("OK", null);
+        dlg.show();
+    }
 
-
-
+    escondeTeclado(view);
 
     }
 
@@ -64,13 +120,28 @@ public class MainActivity extends AppCompatActivity {
              Double resultado = valorAlcool / valorGasolina;
 
              if (resultado >= 0.7){
-                 textViewResult.setText("Melhor abastecer com Gasolina.");
+
+                 AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                 dlg.setTitle("Resultado:");
+                 dlg.setMessage("O valor do Álcool representa menos de 70% do valor " +
+                         "da Gasolina logo, melhor abastecer com Gasolina!");
+                 dlg.setNeutralButton("Fechar", null);
+                 dlg.show();
+                 //textViewResult.setText("Melhor abastecer com Gasolina.");
              }else{
-                 textViewResult.setText("Melhor abastecer com Álcool.");
+
+                 AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                 dlg.setTitle("Resultado:");
+                 dlg.setMessage("Nesse caso, o valor do Álcool é maior ou igual" +
+                         " a 70% o valor da Gasolina logo, melhor abastecer com Álcool!");
+                 dlg.setNeutralButton("Fechar", null);
+                 dlg.show();
+                 //textViewResult.setText("Melhor abastecer com Álcool.");
              }
 
 
          }
+
     //VALIDAR OS CAMPOS DIGITADOS!!!
 
          public Boolean validarCampos (String pAlcool, String pGasolina){
@@ -91,6 +162,19 @@ public class MainActivity extends AppCompatActivity {
              }
              return camposValidados;
 
+
+         }
+
+         //Limpar Campos
+         public void limpar(View view){
+             PrecoAlcool.setText("");
+            PrecoGasolina.setText("");
+
+
+            linearLayout.requestFocus(View.KEEP_SCREEN_ON);
+
+             Toast.makeText(getApplicationContext(), "Campos Apagados!",
+                     Toast.LENGTH_LONG).show();
 
          }
 
