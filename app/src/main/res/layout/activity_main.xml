@@ -104,15 +104,15 @@
         android:text="Limpar" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
+        android:id="@+id/bannerAd"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="ca-app-pub-8069899346555474/8336523279">
 
     </com.google.android.gms.ads.AdView>
+
+
 
 </LinearLayout>

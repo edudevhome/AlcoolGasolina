@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText PrecoAlcool;
     private EditText PrecoGasolina;
     private LinearLayout linearLayout;
-    private AdView adView;
+    private AdView bannerAd;
 
 
     @Override
@@ -30,10 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         MobileAds.initialize(this, "ca-app-pub-8069899346555474/8336523279");
 
-        //Configurando Banner1
-        adView = findViewById(R.id.adView);
+        bannerAd = findViewById(R.id.bannerAd);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        bannerAd.loadAd(adRequest);
+
+
 
         linearLayout = findViewById(R.id.linearLayout);
         PrecoAlcool = findViewById(R.id.PrecoAlcool);
