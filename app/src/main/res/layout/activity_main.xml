@@ -26,23 +26,22 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/gasolina"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:paddingRight="90dp"
+        android:gravity="center"
         android:textColorHint="@android:color/darker_gray"
         app:counterTextAppearance="@style/TextAppearance.AppCompat.Large">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/PrecoGasolina"
-            android:layout_width="230dp"
+            android:layout_width="210dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="100dp"
             android:layout_marginTop="60dp"
             android:background="#34FFFFFF"
             android:cursorVisible="false"
-            android:hint="  Preço Gasolina(ex: 3.99)  "
+            android:hint="  Preço Gasolina(ex: 3.99)"
             android:inputType="numberDecimal"
             android:maxLength="4"
             android:textAlignment="center"
@@ -54,20 +53,19 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/alcool"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="90dp"
+        android:gravity="center"
         android:textColorHint="@android:color/darker_gray"
         android:visibility="visible">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/PrecoAlcool"
-            android:layout_width="230dp"
+            android:layout_width="210dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="100dp"
             android:layout_marginTop="60dp"
             android:background="#34FFFFFF"
             android:cursorVisible="false"
@@ -87,9 +85,11 @@
         android:id="@+id/buttonCalc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="24dp"
+        android:gravity="center"
         android:onClick="calcularPreco"
         android:text="Calcular" />
 
@@ -97,9 +97,9 @@
         android:id="@+id/buttonLimpar"
         android:layout_width="176dp"
         android:layout_height="68dp"
-        android:layout_marginLeft="120dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp"
+        android:gravity="center"
         android:onClick="limpar"
         android:text="Limpar" />
 
